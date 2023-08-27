@@ -12,14 +12,15 @@ header nav { margin-top: 2rem; width: 200px; }
 
 header nav ul.depth1 li { position: relative;}
 header nav ul.depth1 li:not(:last-child) { margin-bottom: 1rem; }
+
 header nav ul li a { display: block; padding-left: 4rem; color: var(--text1); transition: all 300ms; width: 20rem; height: 4.8rem; line-height: 4.8rem; }
 header nav ul li a:hover { color: var(--primary); background: var(--secondary); text-decoration: none; }
 
-header nav ul.depth2 { position: absolute; top:0; right: -600px; width: 600px; display: none; }
-header nav ul.depth2 li { display: inline; }
-header nav ul.depth2 li a { display: inline-block; width: 20%; padding-left: 1rem; }
+header nav ul.depth2 { position: absolute; top:0; right: -600px; width: 600px; /* display: none; */ z-index: 999999; }
+header nav ul.depth2 li { display: inline-block; width: 15%; height: 10%; }
+header nav ul.depth2 li a { display: block; padding-left: 4rem; color: var(--text1); transition: all 300ms; width: 11.4rem; height: 4.8rem; line-height: 4.8rem; } /* --여기-- */
 
-header:before { content: ''; display: block; position: absolute; width: 0%; height: 30rem; background: #ffffff8a; left: 200px; top: 9rem; transition: all 0.3s; }
+header:before { content: ''; display: block; position: absolute; width: 0%; height: 30rem; background: #ffffff8a; left: 200px; top: 9rem; transition: all 0.3s; z-index: 999999; backdrop-filter: blur(20px); }
 header.on::before { width: 100%; }
 
 .spotmenu { margin-top: 9.8rem; padding: 1.1rem 2.5rem; display: flex; justify-content: space-around;}
@@ -28,11 +29,80 @@ header.on::before { width: 100%; }
 
 
 /* ----main---- */
-main { width: 100%; max-width: calc(100% - 200px); background-color: var(--text2); } 
+main { width: 100%; max-width: calc(100% - 200px); } 
 main .slide { width: 100%; height: 400px; background-color: var(--primary); } 
-main .banner { width: 100%; height: 200px; background-color: var(--secondary); } 
-main .board { width: 100%; height: 250px; background-color: var(--text2); } 
+
+
+/* ----popoup---- */
+main .board .popup { position: fixed; z-index: 9999; width: 50rem; height: 30rem; background: #ffffff url(/source/images/bar.png) no-repeat left bottom; top: 50%; left: 50%; display: none;}
+main .popup .textbox { position: absolute; left: 5rem; top: 4rem; }
+.popup .textbox .h1 { position: static; width: 100%; font-size: 2.5rem; text-align: left; padding: 5px; color: var(--primary); margin-bottom: 3rem; }
+.popup .textbox p { padding: 0.25rem 0; }
+.popup .close { position: absolute; right: 1rem; top: 2rem; }
+
+.overlay { position: fixed; background: rgba(0, 0, 0, .5); left: 0; right: 0; top: 0; bottom: 0; z-index: 99; display: none; }
+.overlay.open { display: block; }
+
+
+/* ----board---- */
+main .board { width: 100%; height: 250px; padding: 1rem; }
+main .board .inner { width: 100%; max-width: 900px; margin: auto; }
+main .board .row { display: flex; }
+main .board .buttons li { width: 9rem; padding: 1rem; text-align: center; border: 2px solid var(--primary); background-color: var(--background); }
+main .board .buttons li.on { background-color: var(--primary); }
+main .board .buttons li.on a{ color: var(--background); }
+main .board .panels { width: 100%; height: 18rem; max-width: 50rem; flex-direction: column; position: relative; border: 2px solid var(--primary); border-top: none; }
+main .board .panels:before { content:''; position: absolute; width: calc(100% - 17rem); height: 2px; background-color: var(--primary); top: -2px; right: -2px; }
+main .board .panels .row { justify-content: space-between; }
+main .board .panels .row .left { cursor: pointer; }
+main .board .panels .row .left:hover { text-decoration: underline; }
+main .board .panels .row div { padding: 0.8rem 4rem; }
+main .board h2 { position: absolute; right: 50rem; width: 20rem; text-align: center; line-height: 1.25; color: #bcbcbc; padding: 1rem; font-size: 4rem; }
+.panel1,.panel2 { position: absolute; height: 14rem; width: 100%; }
+.panel2 .row li { padding: 2rem; }
+.panel2 .row li img { width: 100%; }
+.panel2 { display: none; }
+                
+
+/* ----banner---- */
+main .banner { width: 100%; height: 200px; display: flex; justify-content: center; align-items: center; } 
+main .banner .inner { display: flex; max-width: 900px; max-height: 140px; justify-content: space-between; align-items: center; }
+main .banner .inner .row { display: flex; gap: 4rem; }
+main .banner .inner .icon { flex-basis: 30%; }
+main .banner .inner .thumbs { flex: 1 1 14rem; height: 14rem; background: url(/source/images/banner_4.jpg); }
+main .banner .inner .textbox { flex: 0 1 57rem; }
+main .banner .inner p { color: var(--text2); padding-top: 1rem; }
+
+ 
+/* ----quick---- */
+main .quick { position: fixed; right: 2rem; top: 2rem; background: #ffffff; z-index: 55; padding: 2rem 2rem 1rem; display: flex; flex-direction: column; justify-content: space-evenly; border-radius: 1.25rem; }
+.quick li a { display: block; text-align: center; }
+.quick li a *{ display: block; }
+.quick li a .icon { padding: 2.4rem; background: no-repeat center center/cover; }
+.quick li:nth-child(1) a .icon { background-image: url(/source/images/icon_1.png); }
+.quick li:nth-child(2) a .icon { background-image: url(/source/images/icon_2.png); }
+.quick li:nth-child(3) a .icon { background-image: url(/source/images/icon_3.png); }
+
+
+/* ----slide---- */
+main .slide { width: 100%; height: 400px; background: var(--primary); }
+main .slide_wrap { width: 100%; height: 400px; position: relative; }
+main .slide_wrap li { position: absolute; width: 100%; height: 100%; opacity: 0; background: #ffffff no-repeat center center/cover; transition: all 0.3s ease-in-out; }
+main .slide_wrap li.on { opacity: 1; }
+/* img로 넣게 되면, 화면 크기 조절이 어려워서 background로 넣습니다. */
+main .slide_wrap li.slide1 { background-image: url(/source/images/banner_1.png); }
+main .slide_wrap li.slide2 { background-image: url(/source/images/banner_2.jpg); }
+main .slide_wrap li.slide3 { background-image: url(/source/images/banner_3.jpg); }
+main .slide_wrap li .textbox { max-width: 50%; text-align: center; background-color: rgba(0, 0, 0, .5); padding: 2rem; color: #ffffff; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); }
+main .slide_wrap li .textbox span { display: block; padding: 1rem; }
 
 
 /* ----footer---- */
-footer { width: 100%; height: 120px; background-color: var(--secondary); } 
+footer { width: 100%; height: 120px; display: flex; text-align: center; align-items: center; }
+footer .logo { flex-basis: 200px; }
+footer .right { flex-basis: 80%; }
+footer .inner { max-width: 900px; margin: auto; }
+footer .inner .top { display: flex; justify-content: space-around; padding: 0 8rem; }
+footer .inner .top li { position: relative; }
+footer .inner .top li .caption { border-right: #808080 solid 1.5px ; padding-right: 9px; }
+footer .inner .top li:nth-child(6) .caption { border-right: none;}
